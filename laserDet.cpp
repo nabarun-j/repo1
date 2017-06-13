@@ -155,3 +155,5 @@ imwrite("gray_thresh.jpg", gray_thresh);
 imshow("window", gray_thresh);
 waitKey(0);
 }
+
+// adding here something
