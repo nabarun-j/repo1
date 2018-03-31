@@ -20,7 +20,7 @@ struct str{
 	}
 } comp;
 
-Point2f* mySwap(Point2f* points, int i, int j){
+Point2f* swapPoints(Point2f* points, int i, int j){
 	Point2f temp;
 	temp=points[i];
 	points[i]=points[j];
@@ -28,18 +28,18 @@ Point2f* mySwap(Point2f* points, int i, int j){
 	return points;
 }
 
-void mySort(Point2f * points){
+void sortPoints(Point2f * points){
 	//based on x values
 	sort(points, points+4, comp);
-	points=mySwap(points, 1,3); 
+	points=swapPoints(points, 1,3); 
 	//now points0 and points3 are the leftmost points (assumptions involved here)
-	if(points[0].y>points[3].y){points=mySwap(points,0,3);}
-	if(points[1].y>points[2].y){points=mySwap(points,1,2);}
+	if(points[0].y>points[3].y){points=swapPoints(points,0,3);}
+	if(points[1].y>points[2].y){points=swapPoints(points,1,2);}
 }
 
 
 
-Mat myAdaptiveThreshold(Mat gray_img){
+Mat newAdaptiveThreshold(Mat gray_img){
 	// adaptive thresholding where we are using a sliding(in steps of 100x100) window 
 	// in which we find the average value (of grayscale image) in each window 
 	// and pixels below the average by a limit (den * 30) will be thresholded out
@@ -205,7 +205,7 @@ void cropImage(vector<Rect > detectedRect, Mat img, int fileNum){
 		points[3]=Point2f(detectedRect[3].x+(detectedRect[3].width)/2,detectedRect[3].y+(detectedRect[3].height)/2);
 
 		//sort in clockwise order starting from the top left at point[0]
-		mySort(points);
+		sortPoints(points);
 
 		// The 4 points where the mapping is to be done , from top-left in clockwise order
 		outputQuad[0] = Point2f( 0,0 );
@@ -284,7 +284,7 @@ int main(int argc, char** argv){
 	imwrite(bufferName, gray_img);
 
 	//threshold the grayscale image
-	gray_img=myAdaptiveThreshold(gray_img);
+	gray_img=newAdaptiveThreshold(gray_img);
 	t=sprintf(bufferName, "/home/nabarun/laserDet/build/img_%d/manipulatedGray.png",fileNum);
 	// Dump the thresholded image
 	imwrite(bufferName, gray_img);
