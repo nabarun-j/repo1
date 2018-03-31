@@ -182,7 +182,7 @@ vector<Rect > checkRedHue(Mat red_img_hsv, vector <Rect > rects){
 return detectedRect;
 }
 
-void myCrop(vector<Rect > detectedRect, Mat img, int fileNum){
+void cropImage(vector<Rect > detectedRect, Mat img, int fileNum){
 		// Lambda Matrix
 		Mat lambda( 2, 4, CV_32FC1 );
 
@@ -370,7 +370,7 @@ int main(int argc, char** argv){
 	// cropping
 	if(detectedRect.size()==4){
 		printf("cropping\n");
-		myCrop(detectedRect,img,fileNum);
+		cropImage(detectedRect,img,fileNum);
 
 	}
 	else{
